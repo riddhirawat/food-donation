@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Donation - Sign Up</title>
+
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <style>
+        /* Background Image */
+        body {
+            background: url('https://i.postimg.cc/9QJkDQ4j/s-jpg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.85);
+        }
+
+        /* Signup Form Container */
+        .container-box {
+            width: 400px;
+            margin-top: 80px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .container-box h2 {
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            max-width: 120px;
+        }
+
+        .error-text {
+            color: red;
+            font-size: 14px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .container-box {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">FOOD_DONATION</span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item dropdown">  
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Membership
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="signup.html?role=donor">Donor</a></li>
+                            <li><a class="dropdown-item" href="signup1.html?role=receiver">Receiver</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Signup Form -->
+    <div class="container container-box">
+        <div class="logo-container">
+            <img src="https://i.postimg.cc/3NKw09sw/d.webp" alt="Food Donation Logo">
+        </div>
+        <h2>Sign Up - Donor</h2>
+        
+        <form id="signupForm">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                <span class="error-text" id="nameError"></span>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+                <span class="error-text" id="emailError"></span>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" placeholder="Enter phone number" pattern="[0-9]{10}" required>
+                <span class="error-text" id="phoneError"></span>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" required>
+                <span class="error-text" id="passwordError"></span>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+        </form>
+
+        <p class="mt-3 text-center">Already have an account? <a href="login.html" class="text-light">Login</a></p>
+    </div>
+
+    <!-- JavaScript for Validation & Redirect -->
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+    
+            let valid = true;
+    
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let phone = document.getElementById("phone").value.trim();
+            let password = document.getElementById("password").value.trim();
+    
+            let nameError = document.getElementById("nameError");
+            let emailError = document.getElementById("emailError");
+            let phoneError = document.getElementById("phoneError");
+            let passwordError = document.getElementById("passwordError");
+    
+            nameError.innerText = "";
+            emailError.innerText = "";
+            phoneError.innerText = "";
+            passwordError.innerText = "";
+    
+            if (name === "") {
+                nameError.innerText = "Name is required";
+                valid = false;
+            }
+            if (email === "" || !email.includes("@")) {
+                emailError.innerText = "Enter a valid email";
+                valid = false;
+            }
+            if (phone === "" || !/^\d{10}$/.test(phone)) {
+                phoneError.innerText = "Enter a valid 10-digit phone number";
+                valid = false;
+            }
+            if (password === "" || password.length < 6) {
+                passwordError.innerText = "Password must be at least 6 characters";
+                valid = false;
+            }
+    
+            if (valid) {
+                // Send data to Node.js backend
+                try {
+                    let response = await fetch("http://localhost:5000/signup", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ name, email, phone, password })
+                    });
+    
+                    let result = await response.text();
+    
+                    if (response.ok) {
+                        alert("Signup Successful!");
+                        window.location.href = "login.html";
+                    } else {
+                        alert(result);  // Show error message from backend
+                    }
+                } catch (error) {
+                    alert("Error connecting to server. Please try again later.");
+                }
+            }
+        });
+    </script>
+    
+    <!-- Bootstrap Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
