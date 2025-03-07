@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receiver Notifications</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .notification-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .notification {
+            padding: 10px;
+            background: #eaf4e1;
+            border-left: 5px solid #4CAF50;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .notification:hover {
+            background: #d4edda;
+        }
+        #map-container {
+            width: 100%;
+            height: 400px;
+            margin-top: 20px;
+            display: none;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">FOOD_DONATION</span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item dropdown">  
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Membership
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="signup.html?role=donor">Donor</a></li>
+                            <li><a class="dropdown-item" href="signup1.html?role=receiver">Receiver</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">More</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input id="searchInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="button" onclick="searchFunction()">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="notification-container">
+            <h3>📢 Notifications</h3>
+            <div id="notifications">
+                <!-- Notifications will be added dynamically -->
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div id="map-container"></div>
+    </div>
+    <!-- Bootstrap & Leaflet JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        const notifications = [
+            { id: 1, donor: "John Doe", lat: 28.7041, lng: 77.1025 },
+            { id: 2, donor: "Emma Watson", lat: 28.5355, lng: 77.3910 }
+        ];
+
+        // Display Notifications
+        const notificationContainer = document.getElementById('notifications');
+        notifications.forEach(notification => {
+            const div = document.createElement('div');
+            div.classList.add('notification');
+            div.textContent = `${notification.donor} is donating food near you! Click to view.`;
+            div.onclick = () => showMap(notification.lat, notification.lng);
+            notificationContainer.appendChild(div);
+        });
+
+        // Show Map with Donor Location
+        function showMap(lat, lng) {
+            document.getElementById('map-container').style.display = 'block';
+            const map = L.map('map-container').setView([lat, lng], 12);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            L.marker([lat, lng]).addTo(map)
+                .bindPopup('Donor is here!')
+                .openPopup();
+        }
+    </script>
+<footer class="bg-dark text-white text-center py-3">
+    <p>&copy; 2025 Food Donation. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
